@@ -1,3 +1,4 @@
+from core.db import DB
 import socket, urls
 
 class Server:
@@ -31,6 +32,9 @@ class Server:
         except KeyboardInterrupt:
             self.server.close()
             print('\nshutdown the server')
+        except Exception:
+            if DB.has_instance():
+                DB.close()
 
     def update(self):
         client_socket, adress = self.server.accept()

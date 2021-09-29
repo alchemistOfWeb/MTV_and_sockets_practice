@@ -5,20 +5,23 @@ class DB():
     __instance = None
 
     @classmethod
-    def get_connection(cls, *args, **kwargs):
+    def get_connection(cls, db_name=None):
         if not cls.__instance:
-            cls.__instance = DB(args, kwargs)
+            cls.__instance = DB(db_name)
 
         return cls.__instance
 
+    @classmethod
+    def has_instance(cls) -> bool:
+        return bool(cls.__instance)
+
         
-    def __init__(self) -> None:
-        self.connection = sqlite3.connect('Chinook_Sqlite.sqlite')
+    def __init__(self, db_name) -> None:
+        self.connection = sqlite3.connect(db_name)
         self.cursor = self.connection.cursor()
-        self.connection.close()
 
 
-    def query(self, query_str): 
+    def execute(self, query_str): 
         """
         for example:
             db_instance = DB.get_connection()

@@ -1,8 +1,8 @@
 from core import DB
 
 
-def first():
-    print('first migration')
+def migrate():
+    print('migrate...')
     
     db_conn = DB.get_connection()
     query = """
@@ -15,6 +15,3 @@ def first():
     """
     db_conn.execute(query)
 
-
-def second():
-    print('second migration')
